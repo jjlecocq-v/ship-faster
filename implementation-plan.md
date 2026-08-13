@@ -1,6 +1,6 @@
 # Implementation Plan: Ship Faster Demo
 
-**Status:** Phase 1 in progress — blocked on Vercel GitHub login connection  
+**Status:** Phase 2 in progress — Git connected; native lint/typecheck still not visible on deployment detail  
 **Version:** 2.1  
 **Date:** 13 August 2026  
 **Owner:** JJ Lecocq  
@@ -207,9 +207,9 @@ Connect GitHub. Push `main`. First production deploy must go green.
 **Exit checks (all required):**
 
 - [x] `pnpm turbo run build --filter=@ship/web` succeeds locally
-- [x] Production deploy is Ready (`https://ship-faster-web.vercel.app`) — CLI deploy; Git production of `main` still blocked
-- [x] Preview URL opens **without** auth (CLI preview). Git throwaway-branch preview still blocked
-- [ ] Deployment detail shows lint + typecheck checks (not Conformance) — checks are configured; no runs on CLI deploys. Needs Git-connected deployment.
+- [x] Production deploy of `main` is Ready (`https://ship-faster-web.vercel.app`, Git production `dpl_EQBd7b9zUesQXXS12WdMRZgR5ZBc`)
+- [x] Preview URL for a throwaway branch opens **without** auth (`preview/protection-check`, HTTP 200)
+- [ ] Deployment detail shows lint + typecheck checks (not Conformance) — project checks exist; no runs on Git deploys yet
 
 ### Phase 2 — Seed history + Act 2 branches (day 1, afternoon)
 
@@ -250,10 +250,10 @@ If ui is not a hit: check that ui does not import utils, that `outputs` match, a
 
 **Exit checks:**
 
-- [ ] ≥10 deployments visible
-- [ ] PR `feature/hero-update` open, Vercel comment present
-- [ ] `demo/turbo-cache-hit.png` exists and clearly shows a HIT on ui
-- [ ] Time `git push` → Ready → PR comment URL clickable. Write the number of seconds in `demo/TIMING.md`. If it is >90s, the presenter talks over the build; do not pretend it is 60s.
+- [x] ≥10 deployments visible
+- [x] PR `feature/hero-update` open, Vercel comment present (https://github.com/jjlecocq-v/ship-faster/pull/2)
+- [x] `demo/turbo-cache-hit.png` exists and clearly shows a HIT on ui
+- [x] Time `git push` → Ready → PR comment URL clickable. Write the number of seconds in `demo/TIMING.md`. If it is >90s, the presenter talks over the build; do not pretend it is 60s.
 
 ### Phase 3 — AI Gateway (day 2, morning + 24h soak)
 

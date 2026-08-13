@@ -22,6 +22,5 @@ for i in $(seq 1 10); do
   git add "$file"
   git -c user.name="JJ Lecocq" -c user.email="jjlecocq-v@users.noreply.github.com" \
     commit -m "chore: seed deployment ${i}"
+  git push "$remote" main
 done
-
-git push "$remote" main
