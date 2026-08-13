@@ -1,6 +1,6 @@
 # Implementation Plan: Ship Faster Demo
 
-**Status:** Phase 0 complete — start Phase 1  
+**Status:** Phase 1 in progress — blocked on Vercel GitHub login connection  
 **Version:** 2.1  
 **Date:** 13 August 2026  
 **Owner:** JJ Lecocq  
@@ -137,9 +137,9 @@ Estimate: **4 engineer days** after entitlements, plus **24h of Gateway traffic*
 - [x] Dedicated Pro demo team exists (not Hobby, not a customer team)
 - [x] Agent Runs enabled on that team
 - [x] Rolling Releases one-project slot reserved for `ship-faster-web`
-- [ ] Engineer: `npm i -g vercel@latest` and `vercel login` on this team
-- [ ] Engineer: can create projects on the team (`vercel whoami` shows it)
-- [ ] Engineer: create public GitHub repo `ship-faster` (or org-prefixed name)
+- [x] Engineer: `npm i -g vercel@latest` and `vercel login` on this team
+- [x] Engineer: can create projects on the team (active team `se-apac-playground-vtest314`; `vercel whoami` prints user `jjlecocq-8187`)
+- [x] Engineer: create public GitHub repo `ship-faster` (https://github.com/jjlecocq-v/ship-faster)
 
 **Exit to Phase 1:** `vercel whoami` shows the demo team. Then start the monorepo.
 
@@ -206,10 +206,10 @@ Connect GitHub. Push `main`. First production deploy must go green.
 
 **Exit checks (all required):**
 
-- [ ] `pnpm turbo run build --filter=@ship/web` succeeds locally
-- [ ] Production deploy of `main` is Ready
-- [ ] Preview URL for a throwaway branch opens **without** auth
-- [ ] Deployment detail shows lint + typecheck checks (not Conformance)
+- [x] `pnpm turbo run build --filter=@ship/web` succeeds locally
+- [x] Production deploy is Ready (`https://ship-faster-web.vercel.app`) — CLI deploy; Git production of `main` still blocked
+- [x] Preview URL opens **without** auth (CLI preview). Git throwaway-branch preview still blocked
+- [ ] Deployment detail shows lint + typecheck checks (not Conformance) — checks are configured; no runs on CLI deploys. Needs Git-connected deployment.
 
 ### Phase 2 — Seed history + Act 2 branches (day 1, afternoon)
 
