@@ -3,6 +3,8 @@ node_modules
 .next
 dist
 .vercel
+.eve
+.output
 .env
 .env*.local
 *.tsbuildinfo

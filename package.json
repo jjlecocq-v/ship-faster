@@ -6,10 +6,17 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "gateway:traffic": "tsx --env-file=.env.local scripts/gateway-traffic.ts",
+    "gateway:failover": "tsx --env-file=.env.local scripts/gateway-failover.ts"
   },
   "devDependencies": {
+    "ai": "^6.0.248",
+    "tsx": "^4.23.12",
     "turbo": "^2.10.9",
     "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": "24.x"
   }
 }
