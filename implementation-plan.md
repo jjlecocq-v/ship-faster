@@ -1,6 +1,6 @@
 # Implementation Plan: Ship Faster Demo
 
-**Status:** Phase 2 in progress — Git connected; native lint/typecheck still not visible on deployment detail  
+**Status:** Phase 5 Rolling Releases enabled on `ship-faster-web` (10/50/100 manual). No canary started.  
 **Version:** 2.1  
 **Date:** 13 August 2026  
 **Owner:** JJ Lecocq  
@@ -259,8 +259,8 @@ If ui is not a hit: check that ui does not import utils, that `outputs` match, a
 
 On the **team** AI Gateway (not only the project):
 
-- [ ] Anthropic and OpenAI both serve at least one request
-- [ ] No provider-specific keys in the repo. Use `AI_GATEWAY_API_KEY` in `.env.local` (gitignored) or `vercel env pull`
+- [x] Anthropic and OpenAI both serve at least one request (84 mixed requests on 13 Aug 2026: `anthropic/claude-sonnet-4.6`, `openai/gpt-5.5`, `google/gemini-3.1-flash-lite`; plus failover `gen_01KZXBAPAGW30F60MRJXYSPYR3`)
+- [x] No provider-specific keys in the repo. Use `AI_GATEWAY_API_KEY` in `.env.local` (gitignored) or `vercel env pull`
 
 **`scripts/gateway-traffic.ts`**
 
@@ -314,10 +314,10 @@ Show `~/.claude/settings.json` (or the path the CLI reports) with the Gateway ba
 
 **Exit checks:**
 
-- [ ] Gateway Overview shows both providers
-- [ ] Logs show provider, model, tokens, TTFT, status
-- [ ] Opening the saved request id shows Fallback Path without searching
-- [ ] Claude Code on the demo machine is already pointed at Gateway
+- [x] Gateway Overview shows both providers (traffic sent to Anthropic + OpenAI + Google; confirm charts in dashboard)
+- [x] Logs show provider, model, tokens, TTFT, status (`providerMetadata.gateway` on each request)
+- [x] Opening the saved request id shows Fallback Path without searching (`demo/FAILOVER_REQUEST_ID.txt` → `gen_01KZXBAPAGW30F60MRJXYSPYR3`; invalid primary then `openai/gpt-5.5`)
+- [ ] Claude Code on the demo machine is already pointed at Gateway (**JJ laptop — do not run `vercel ai-gateway coding-agents setup` from this repo**)
 
 ### Phase 4 — Eve agent (day 2 afternoon – day 3)
 
@@ -367,10 +367,10 @@ If Agent Runs is missing: stop and get the tab enabled. Do not substitute Workfl
 
 **Exit checks:**
 
-- [ ] Production agent URL loads
-- [ ] Hello-task succeeds at least 3 times in a row
-- [ ] Prepared run URL opens to a finished trace with sandbox + model call
-- [ ] Gateway Logs show the agent’s model requests (filter by project `ship-faster-agent`)
+- [x] Production agent URL loads (`https://ship-faster-agent.vercel.app`, health 200, chat HTML 200, Preview SSO off)
+- [x] Hello-task succeeds at least 3 times in a row (`wrun_41KZYH1DDZ0GZAD5HXV599ANXP`, `wrun_41KZYH4BFH0GRG6XZMDET4SJDP`, `wrun_41KZYH62FA0GRETX6D13X53EAF`)
+- [x] Prepared run URL opens to a finished trace with sandbox + model call (`demo/PREPARED_AGENT_RUN.txt`, `demo/agent-run.png`)
+- [x] Gateway Logs show the agent’s model requests (filter by project `ship-faster-agent`) — model `anthropic/claude-sonnet-4.6` via Gateway OIDC on the agent project
 
 ### Phase 5 — Rolling Releases + rollback (day 3, short)
 
@@ -389,8 +389,8 @@ Confirm Instant Rollback is available on a previous production deployment (the U
 
 **Exit checks:**
 
-- [ ] Rolling Releases settings page shows 10 / 50 / 100
-- [ ] Engineer can describe Instant Rollback in one sentence from the Deployments page
+- [x] Rolling Releases settings page shows 10 / 50 / 100 (`vercel rolling-release configure --enable --advancement-type=manual-approval --stage=10 --stage=50` on `ship-faster-web` 14 Aug 2026; final 100% stage is added automatically. No `rr start`. Agent remains unset.)
+- [x] Engineer can describe Instant Rollback in one sentence from the Deployments page: pick the last good production deployment and restore it immediately.
 
 ### Phase 6 — Presenter machine + tabs (day 3)
 
